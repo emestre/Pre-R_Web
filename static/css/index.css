@@ -1,0 +1,37 @@
+.navbar {
+  background-color: #ffffff;
+}
+
+.jumbotron {
+    height: 525px;
+    width: 100%;
+    background-image: url(../img/jumbotron.jpg);
+    background-position: 0% 25%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+    text-shadow: black 0.1em 0.1em 0.1em;
+}
+
+.jumbotron .container {
+	margin-top: 110px;
+	margin-left: 150px;
+}
+
+.jumbotron .col-md-3 {
+	padding-right: 0;
+}
+
+.jumbotron .col-lg-3 {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.featurette-heading {
+    color: #d2322d;
+}
+
+.content {
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
