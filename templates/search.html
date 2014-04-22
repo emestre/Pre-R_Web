@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block css %}
+  <link rel="stylesheet" href="../static/css/search.css">
+{% endblock %}
+
+{% block content %}
+<div id="map-canvas"></div>
+<div class="container-fluid" id="main">
+  <div class="row">
+    <div class="col-lg-7" id="left">
+      <div class="container" id="list-container">
+        <h3>
+          <span style="color: #d2322d; font-style:italic">Procedure Name</span> near 
+          <span style="color: #d2322d; font-style:italic">San Francsico, CA</span>
+        </h3>
+
+        <hr>
+        <ul class="list-group">
+          <li>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="panel-more1">
+                  <img src="../static/img/hosp1.jpg"/>
+                </div>
+                <div class="panel-info">
+                  <h4 style="color: #d2322d;"><strong>$4500.00</strong></h4>
+                  <p>California Pacific Medical Center<br/>
+                    3700 California St<br/>
+                    San Francisco, CA 94118<br/>
+                    (415) 600-6000</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="panel-more1">
+                  <img src="../static/img/hosp2.jpg"/>
+                </div>
+                <div class="panel-info">
+                  <h4 style="color: #d2322d;"><strong>$3250.00</strong></h4>
+                  <p>UCSF Medical Center<br/>
+                    505 Parnassus Ave<br/>
+                    San Francisco, CA 94143<br/>
+                    (415) 476-1000</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <div class="panel-more1">
+                  <img src="../static/img/hosp3.jpg"/>
+                </div>
+                <div class="panel-info">
+                  <h4 style="color: #d2322d;"><strong>$3000.00</strong></h4>
+                  <p>Saint Francis Memorial Hospital<br/>
+                    900 Hyde St<br/>
+                    San Francisco, CA 94109<br/>
+                    (415) 353-6000</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-5"><!--map-canvas will be postioned here--></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAaoT4466dropTf6IfppakdQ4BSG85hdeI&sensor=false"></script>
+<script src="../static/js/search.js"></script>
+{% endblock %}
+
+<!-- Remove footer -->
+{% block footer %}
+{% endblock %}

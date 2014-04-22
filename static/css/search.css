@@ -1,0 +1,49 @@
+#main, #main>.row {
+	height:100%;
+}
+
+#main>.row {
+    overflow-y:scroll;
+}
+
+#left {
+	height:100%;
+}
+
+#map-canvas {
+	width:41.6667%;
+    height:calc(100% - 0);
+    position:absolute;
+    right:16px;
+    top:50px;
+    bottom:0;
+    overflow:hidden;
+}
+
+a {
+    color:#d2322d;
+}
+
+a:link {
+    color:#d2322d;
+}
+
+a:hover {
+    color:#d2322d;
+}
+a:active { 
+    color:#d2322d;
+}
+
+.list-group li {
+    list-style: none;
+}
+
+#list-container {
+    width:auto;   
+}
+
+.panel-info, .panel-cost, .panel-more1 {
+    float: left;
+    margin: 0 10px;
+}

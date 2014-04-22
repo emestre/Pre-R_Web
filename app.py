@@ -12,6 +12,14 @@ def favicon():
 def page_not_found(e):
     return render_template('404.html'), 404
 
+@app.route("/search")
+def search():
+    return render_template('search.html')
+
+@app.route("/dash")
+def dash():
+    return render_template('dash.html')
+
 @app.route("/")
 def index():
     return render_template('index.html')
