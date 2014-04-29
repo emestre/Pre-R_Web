@@ -9,7 +9,12 @@ function get_param (name) {
   return (window.location.href.match (name) || ['', ''])[1];
 };
 
+function getDirections(address) {
+
+};
+
 function populate_services() {
+
   var proc = get_param('proc');
   var loc = get_param('loc').split("%20").join(" ");
   var geocoder = new google.maps.Geocoder();
@@ -25,7 +30,11 @@ function populate_services() {
 		
 	    $.getJSON("http://prer-backend.appspot.com/v1/entries/search?name=" + proc + "&radius=50&lat=" + latitude + "&lng=" + longitude, function(data) {
 			$.each(data, function (index, value) {
-				addMarker(value.hospital);
+				var address = value.hospital.street + " " + 
+				value.hospital.city + " " + 
+				value.hospital.state + " " + 
+				value.hospital.zip_code;
+				addMarker(address);
 				$("#list-container ul").append("<li>" +
 					"<div class=\"panel panel-default\">"+
 					  "<div class=\"panel-body\">"+
@@ -40,11 +49,21 @@ function populate_services() {
 						  value.hospital.state + " " + 
 						  value.hospital.zip_code + "<br/> " + 
 						  value.hospital.phone_number + "<br/>" + 
-						  "<a href=\"" + value.hospital.url + "\">" + value.hospital.url + "</a></p>" +
+						  "<a href=\"" + value.hospital.url + "\">" + value.hospital.url + "</a><br/>" + 
+						  "<a id=\"dir-" + index + "\" href=\"#\">Get Directions</a></p>" +
 						"</div>"+
 					  "</div>"+
 					"</div>"+
 				  "</li>");
+				  
+				  $("#dir-" + index).click(function() {
+				      $.getJSON("http://api.hostip.info/get_json.php", function(data) {
+							console.log(data.ip);
+							var startAddr = data.city + " " + data.country_code;
+							var url = "https://maps.google.com/maps?saddr=" + startAddr + "&daddr=" + address;
+							 window.location = url;
+						});
+					});
 				});
 			});
         } 
@@ -62,10 +81,8 @@ function setMapCenter(lat, lng) {
 	map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 };
 
-function addMarker(hospital) {
-
+function addMarker(address) {
 	var geocoder = new google.maps.Geocoder();
-	var address = hospital.street + " " + hospital.city + " " + hospital.state + " " + hospital.zip_code;
 
 	geocoder.geocode( { 'address': address }, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
