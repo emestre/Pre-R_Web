@@ -13,11 +13,42 @@
           <span id="proc_name" style="color: #d2322d; font-style:italic"></span> near 
           <span id="loc_name" style="color: #d2322d; font-style:italic"></span>
         </h3>
-
+		
         <hr>
-        <ul class="list-group">
-          
-        </ul>
+		
+		<div> 
+			<h4>
+				<span style="color: #d2322d;"> Sort By: </span>
+				<select id="sort_type" onchange="sort_results()">
+					<option> Price </option>
+					<option> Distance </option>
+				</select>
+				<select id="sort_order" onchange="sort_results()">
+					<option> Ascending </option>
+					<option> Descending </option>
+				</select>
+				<span style="color: #d2322d;"> Within: </span>
+				<select id="radius" onchange="sort_results()">
+					<option> 10 miles </option>
+					<option> 20 miles </option>
+					<option> 30 miles </option>
+					<option> 40 miles </option>
+					<option selected="selected"> 50 miles </option>
+					<option> 100 miles </option>
+					<option> 200 miles </option>
+					<option> 300 miles </option>
+					<option> 400 miles </option>
+					<option> 500 miles </option>
+					<option> 1000 miles </option>
+					<option> 2000 miles </option>
+					<option> 3000 miles </option>
+				</select>
+			</h4>
+		</div>
+		
+		<hr>
+		
+        <ul class="list-group"><!-- Search results --></ul>
       </div>
     </div>
     <div class="col-lg-5"><!--map-canvas will be postioned here--></div>

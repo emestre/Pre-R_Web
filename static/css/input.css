@@ -1,0 +1,67 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+#right_content {
+    width: 23%;
+	height: 100%;
+    float: left;
+    background: #fbfbfb;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+
+#left_content {
+    float: right;
+    background: #fbfbfb;
+    width: 20%;
+	height: 100%;
+    overflow: hidden;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 10px;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+
+#middle_content {
+	margin-top: 3px;
+	margin-right:2%;
+	float: right;
+    width: 53%;
+    overflow: hidden;
+}
+
+#middle_content #bill {
+	width: 100%;
+	border:1px solid #ccc;
+	border-radius:25px;
+}
+
+
+.form-control, .input-group {
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.divider {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.procedures {
+	margin-top: 30px;
+}
+
+#add-procedure, #remove-procedure {
+	width: 100%;
+	text-align: center;
+}

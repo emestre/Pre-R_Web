@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% block css %}
+  <link rel="stylesheet" href="../static/css/input.css">
+{% endblock %}
+
+{% block content %}
+<div id="main_content">
+	<div id="left_content">
+		<h4><i>Thank you for making health care healthier!</i></h4>
+		<p></p>
+	</div>
+	<div id="middle_content">
+		<image id="bill" src="../static/img/sample_bill.jpg"/>
+	</div>
+	<div id="right_content">
+		<h4 class="navbar-header divider"> Basic Information </h4>
+
+			<form class="form-horizontal" role="form" id="input_form">
+			
+			  <div class="form-group">
+				<label for="serviceDate" class="col-sm-2 control-label">Date</label>
+				<div class="col-sm-10">
+				  <input type="date" class="form-control" id="serviceDate" placeholder="Service Date">
+				</div>
+			  </div>
+
+			  <div class="form-group">
+				<label for="insured" class="col-sm-2 control-label">Insured</label>
+				<div class="col-sm-10">
+					<button id="insured" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">No</button>
+					<ul id="insured_dd" class="dropdown-menu">
+					  <li><a href="#">Yes</a></li>
+					  <li><a href="#">No</a></li>
+					</ul>
+				</div>
+			  </div>
+			  
+			
+			<h4 class="navbar-header divider"> Hospital Information </h4>
+
+			  <div class="form-group">
+				<label for="name" class="col-sm-2 control-label">Name</label>
+				<div class="col-sm-10">
+				  <input type="text" class="form-control" id="name" placeholder="Name">
+				</div>
+			  </div>
+			  
+			  <div class="form-group">
+				  <label for="phone" class="col-sm-2 control-label">Phone</label>
+			     <div class="col-sm-10">
+				  <input type="text" class="form-control" id="phone" placeholder="Phone">
+				</div>
+			  </div>
+			  
+			  <div class="form-group">
+				  <label for="url" class="col-sm-2 control-label">Website</label>
+			     <div class="col-sm-10">
+				  <input type="text" class="form-control" id="url" placeholder="Website">
+				</div>
+			  </div>
+			  
+			  
+			  <div class="form-group">
+				  <label for="street" class="col-sm-2 control-label">Street</label>
+			     <div class="col-sm-10">
+				  <input type="text" class="form-control" id="street" placeholder="Street">
+				</div>
+			  </div>
+				
+			  <div class="form-group">
+				  <label for="city" class="col-sm-2 control-label">City</label>
+			     <div class="col-sm-10">
+				  <input type="text" class="form-control" id="city" placeholder="City">
+				</div>
+			  </div>
+			  
+			  <div class="form-group">
+				  <label for="state" class="col-sm-2 control-label">State</label>
+			     <div class="col-sm-10">
+				  <select class="form-control bfh-states" data-country="US" data-state="CA">
+					<option value="AL">Alabama</option>
+					<option value="AK">Alaska</option>
+					<option value="AZ">Arizona</option>
+					<option value="AR">Arkansas</option>
+					<option value="CA">California</option>
+					<option value="CO">Colorado</option>
+					<option value="CT">Connecticut</option>
+					<option value="DE">Delaware</option>
+					<option value="DC">District Of Columbia</option>
+					<option value="FL">Florida</option>
+					<option value="GA">Georgia</option>
+					<option value="HI">Hawaii</option>
+					<option value="ID">Idaho</option>
+					<option value="IL">Illinois</option>
+					<option value="IN">Indiana</option>
+					<option value="IA">Iowa</option>
+					<option value="KS">Kansas</option>
+					<option value="KY">Kentucky</option>
+					<option value="LA">Louisiana</option>
+					<option value="ME">Maine</option>
+					<option value="MD">Maryland</option>
+					<option value="MA">Massachusetts</option>
+					<option value="MI">Michigan</option>
+					<option value="MN">Minnesota</option>
+					<option value="MS">Mississippi</option>
+					<option value="MO">Missouri</option>
+					<option value="MT">Montana</option>
+					<option value="NE">Nebraska</option>
+					<option value="NV">Nevada</option>
+					<option value="NH">New Hampshire</option>
+					<option value="NJ">New Jersey</option>
+					<option value="NM">New Mexico</option>
+					<option value="NY">New York</option>
+					<option value="NC">North Carolina</option>
+					<option value="ND">North Dakota</option>
+					<option value="OH">Ohio</option>
+					<option value="OK">Oklahoma</option>
+					<option value="OR">Oregon</option>
+					<option value="PA">Pennsylvania</option>
+					<option value="RI">Rhode Island</option>
+					<option value="SC">South Carolina</option>
+					<option value="SD">South Dakota</option>
+					<option value="TN">Tennessee</option>
+					<option value="TX">Texas</option>
+					<option value="UT">Utah</option>
+					<option value="VT">Vermont</option>
+					<option value="VA">Virginia</option>
+					<option value="WA">Washington</option>
+					<option value="WV">West Virginia</option>
+					<option value="WI">Wisconsin</option>
+					<option value="WY">Wyoming</option>
+				</select>				
+				</div>
+			  </div>
+			  
+			  <div class="form-group">
+				  <label for="zip" class="col-sm-2 control-label">ZIP</label>
+			     <div class="col-sm-10">
+				  <input type="text" class="form-control" id="zip" placeholder="ZIP Code" onkeypress="validate(event, this)">
+				</div>
+			  </div>
+			
+			  <h4 class="navbar-header divider"> Services </h4>
+			  
+			  <div class="procedures">
+				<div class="proc-0">			  
+					<div class="form-group">
+					 <label for="service_name" class="col-sm-2 control-label">Name</label>
+					 <div class="col-sm-10">
+					  <input type="text" class="form-control" id="service_name" placeholder="Name">
+					 </div>
+				    </div>
+					
+					<div class="form-group">
+					 <label for="cpt_code" class="col-sm-2 control-label">CPT</label>
+					 <div class="col-sm-10">
+					  <input type="text" class="form-control" id="cpt_code" placeholder="CPT Code">
+					 </div>
+				    </div>
+								  
+
+				  <div class="form-group">
+				  <label for="cost" class="col-sm-2 control-label">Cost</label>
+				  <div class="col-sm-10">
+				  <div class="input-group">
+					  <span class="input-group-addon">$</span>
+					  <input type="price" class="form-control" id="cost" placeholder="Cost" onkeypress="validate(event, this)">
+					</div>
+					</div>
+				  </div>
+				  
+				  <div class="form-group">
+					 <label for="description" class="col-sm-2 control-label">Desc.</label>
+					 <div class="col-sm-10">
+					  <input type="text" class="form-control" id="description" placeholder="Description">
+					 </div>
+				   </div>
+				</div>
+				<a id="add-procedure" href="#" onclick="addservice()"><h5>+ Add Service<h5></a>
+				<a id="remove-procedure" href="#" onclick="removeservice()" hidden><h5>- Remove Service<h5></a>
+			  </div>
+			  
+				 <div class="form-group">
+					<div class="col-sm-offset-8 col-sm-2">
+					  <button id="submit" type="submit" class="btn btn-primary" data-complete-text="Done " data-loading-text="Loading...">
+						 Submit
+					  </button>
+					</div>
+				  </div>
+			</form>
+		
+	</div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="../static/js/input.js"></script>
+{% endblock %}
+
+<!-- Remove footer -->
+{% block footer %}
+{% endblock %}

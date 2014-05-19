@@ -11,10 +11,10 @@
       <form role="form">
         <div class="row">
           <div class="col-md-3">
-            <input type="text" class="form-control" id="procedure-name" placeholder="Procedure Name" required>
+            <input type="text" class="form-control" id="procedure-name" placeholder="Procedure Name" onkeypress="search(event)">
           </div>
           <div class="col-lg-3">
-            <input type="text" class="form-control" id="location" placeholder="City, State" required>
+            <input type="text" class="form-control" id="location" placeholder="City, State" onkeypress="search(event)">
           </div>
           <div class="col-lg-3">
             <button type="button" class="btn btn-danger" id="search-btn">Search</button>

@@ -1,4 +1,9 @@
 var map;
+var results;
+var proc;
+var loc;
+var latitude;
+var longitude;
 
 $(document).ready(function() {
   google.maps.event.addDomListener(window, 'load', populate_services);
@@ -14,56 +19,27 @@ function getDirections(address) {
 };
 
 function populate_services() {
-
-  var proc = get_param('proc');
-  var loc = get_param('loc').split("%20").join(" ");
+   proc = get_param('proc');
+   loc = get_param('loc').split("%20").join(" ");
   var geocoder = new google.maps.Geocoder();
    $("#proc_name").text(proc);
    $("#loc_name").text(loc);
    geocoder.geocode( { 'address': loc}, function(results, status) {
 	
    if (status == google.maps.GeocoderStatus.OK) {
-        var latitude = results[0].geometry.location.lat();
-        var longitude = results[0].geometry.location.lng();
+        latitude = results[0].geometry.location.lat();
+        longitude = results[0].geometry.location.lng();
 		
 		setMapCenter(latitude, longitude);
-		
-	    $.getJSON("http://prer-backend.appspot.com/v1/entries/search?name=" + proc + "&radius=50&lat=" + latitude + "&lng=" + longitude, function(data) {
-			$.each(data, function (index, value) {
-				var address = value.hospital.street + " " + 
-				value.hospital.city + " " + 
-				value.hospital.state + " " + 
-				value.hospital.zip_code;
-				addMarker(address);
-				$("#list-container ul").append("<li>" +
-					"<div class=\"panel panel-default\">"+
-					  "<div class=\"panel-body\">"+
-						"<div class=\"panel-more1\">"+
-						  "<img src=\"../static/img/hosp" + ((index % 5) + 1) +".jpg\" width=\"200\" />"+
-						"</div>"+
-						"<div class=\"panel-info\">"+
-						  "<h4 style=\"color: #d2322d;\"><strong>$" + value.cost + "</strong></h4>" +
-						  "<p>" + value.hospital.name + "<br/> " + 
-						  value.hospital.street + "<br/> " + 
-						  value.hospital.city + ", " + 
-						  value.hospital.state + " " + 
-						  value.hospital.zip_code + "<br/> " + 
-						  value.hospital.phone_number + "<br/>" + 
-						  "<a href=\"" + value.hospital.url + "\">" + value.hospital.url + "</a><br/>" + 
-						  "<a id=\"dir-" + index + "\" href=\"#\">Get Directions</a></p>" +
-						"</div>"+
-					  "</div>"+
-					"</div>"+
-				  "</li>");
-				  
-				  $("#dir-" + index).click(function() {
-				      $.getJSON("http://api.hostip.info/get_json.php", function(data) {
-							console.log(data.ip);
-							var startAddr = data.city + " " + data.country_code;
-							var url = "https://maps.google.com/maps?saddr=" + startAddr + "&daddr=" + address;
-							 window.location = url;
-						});
-					});
+		var api_call = "http://prer-backend.appspot.com/v1/entries/search?name=" + proc + "&radius=50&lat=" + latitude + "&lng=" + longitude;
+	    console.log(api_call);
+		$.getJSON(api_call, function(data) {
+			results = data;
+			results.sort(function(a, b) {
+					return a.cost.localeCompare(b.cost);
+				});
+			$.each(results, function (index, value) {
+					add_result(value, index);
 				});
 			});
         } 
@@ -133,3 +109,82 @@ function initialize() {
   }
 };
 
+function sort_results() {
+	var type = $('#sort_type').find(":selected").text().trim();
+	var order = $('#sort_order').find(":selected").text().trim();
+	var radius = $('#radius').find(":selected").text().trim();
+	radius = radius.replace(" miles", "");
+	
+	$.getJSON("http://prer-backend.appspot.com/v1/entries/search?name=" + proc + "&radius=" + radius + "&lat=" + latitude + "&lng=" + longitude, function(data) {
+		results = data;
+		if(order == "Ascending") {
+			if(type == "Price") {
+				results.sort(function(a, b) {
+					return a.cost.localeCompare(b.cost);
+				});
+			} else {
+				results.sort(function(a, b) {
+					return a.distance.localeCompare(b.distance);
+				});
+			}
+		} else {
+			if(type == "Price") {
+				results.sort(function(a, b) {
+					return b.cost.localeCompare(a.cost);
+				});
+			} else {
+				results.sort(function(a, b) {
+					return b.distance.localeCompare(a.distance);
+				});
+			}
+		}
+		
+	
+		$("#list-container ul").empty();
+
+		$.each(results, function(index, value) {
+			console.log(parseFloat(value.cost));
+			add_result(value, index);
+		});
+	}); 
+}
+
+function add_result(value, index) {
+	var address = value.hospital.street + " " + 
+	value.hospital.city + " " + 
+	value.hospital.state + " " + 
+	value.hospital.zip_code;
+	addMarker(address);
+	$("#list-container ul").append("<li>" +
+		"<div class=\"panel panel-default\">"+
+		  "<div class=\"panel-body\">"+
+			"<div class=\"panel-more1\">"+
+			  "<img src=\"../static/img/hosp" + ((index % 5) + 1) +".jpg\" width=\"200\" />"+
+			"</div>"+
+			"<div class=\"panel-info\">"+
+			  "<h4 style=\"color: #d2322d;\"><strong>$" + value.cost + "</strong></h4>" +
+			  "<p>" + value.hospital.name + "<br/> " + 
+			  value.hospital.street + "<br/> " + 
+			  value.hospital.city + ", " + 
+			  value.hospital.state + " " + 
+			  value.hospital.zip_code + "<br/> " + 
+			  value.hospital.phone_number + "<br/>" + 
+			  "<a href=\"" + value.hospital.url + "\">" + value.hospital.url + "</a><br/>" + 
+			  "<a id=\"dir-" + index + "\" href=\"#\">Get Directions</a></p>" +
+			"</div>"+
+		  "</div>"+
+		"</div>"+
+	  "</li>");
+	  
+	  $("#dir-" + index).click(function() {
+		  $.getJSON("http://api.hostip.info/get_json.php", function(data) {
+				console.log(data.ip);
+				$.getJSON("http://www.geoplugin.net/json.gp?ip=" + data.ip, function(data) {
+					console.log(data);
+					var startAddr = data.geoplugin_city + " " + data.geoplugin_regionCode + " "  + data.geoplugin_countryCode;
+					var url = "https://maps.google.com/maps?saddr=" + startAddr + "&daddr=" + address;
+					window.location = url;
+				});
+			});
+		});
+}
