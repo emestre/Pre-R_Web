@@ -2,6 +2,7 @@ var map;
 var results;
 var proc;
 var loc;
+var mode;
 var latitude;
 var longitude;
 
@@ -21,6 +22,7 @@ function getDirections(address) {
 function populate_services() {
    proc = get_param('proc');
    loc = get_param('loc').split("%20").join(" ");
+   mode = get_param('mode');
   var geocoder = new google.maps.Geocoder();
    $("#proc_name").text(proc);
    $("#loc_name").text(loc);
@@ -31,9 +33,14 @@ function populate_services() {
         longitude = results[0].geometry.location.lng();
 		
 		setMapCenter(latitude, longitude);
-		var api_call = "http://prer-backend.appspot.com/v1/entries/search?name=" + proc + "&radius=50&lat=" + latitude + "&lng=" + longitude;
+		var base = "http://prer-backend.appspot.com/v1/entries/search?";
+	//	if(mode == 'Name')
+			base += 'name=' + proc;
+	//	else
+	//		base += 'cpt_code=' + proc;
+		base += "&radius=50&lat=" + latitude + "&lng=" + longitude;
 	    console.log(api_call);
-		$.getJSON(api_call, function(data) {
+		$.getJSON(base, function(data) {
 			results = data;
 			results.sort(function(a, b) {
 					return a.cost.localeCompare(b.cost);
@@ -143,6 +150,7 @@ function sort_results() {
 		$("#list-container ul").empty();
 
 		$.each(results, function(index, value) {
+			console.log(value);
 			console.log(parseFloat(value.cost));
 			add_result(value, index);
 		});

@@ -5,6 +5,7 @@ $(document).ready(function() {
 function onSearch() {
   var proc_name = $('#procedure-name').val();
   var loc = $('#location').val();
+  var mode = $('#mode').find(":selected").text().trim();
   if(loc == "" || proc_name == "") {
 	  if(loc == "") {
 		$('#location').parent().addClass("has-error");
@@ -20,7 +21,7 @@ function onSearch() {
 		 $('#procedure-name').parent().removeClass("has-error");
   }
   else {
-     var url = 'http://127.0.0.1:5000/search?proc=' + proc_name + '&loc=' + loc;
+     var url = 'http://127.0.0.1:5000/search?proc=' + proc_name + '&loc=' + loc + '&mode=' + mode;
      window.location = url;
   }
 }

@@ -4,8 +4,6 @@ $(document).ready(function() {
 	$('#insured_dd li').click(function () {
 		$('#insured').text($(this).text());
 	});
-	$('#right_content').height($('#middle_content').height());
-	$('#left_content').height($('#middle_content').height());
 });
 
 function validate(evt, ele) {
@@ -61,25 +59,48 @@ function addservice() {
 
 	$("#add-procedure").before(new_service);
 	$("#remove-procedure").show();
-	if(num_procs > 0)
-		$('#right_content').height('100%');
+	$('html, body').animate({
+        scrollTop: $(".proc-"+num_procs).find("#service_name").offset().top - 55
+    }, 500);
+	event.preventDefault();
 }
 
 function removeservice() {
 	$(".proc-" + num_procs).remove();
 	num_procs--;
-	console.log(num_procs);
+	
 	if(num_procs == 0) {
 		$("#remove-procedure").hide();
-		$('#right_content').height($('#middle_content').height());
 	}
+	$('html, body').animate({
+        scrollTop: $(".proc-"+num_procs).find("#service_name").offset().top - 55
+    }, 500);
+	event.preventDefault();
 }
 
-$('#submit').click(function() {
-var btn = $(this)
+$('#submit').click(function(event) {
+	var btn = $(this)
     btn.button('loading');
 	setTimeout(function() { done_loading(btn); }, 2000);
+	event.preventDefault();
 });
+
+$('#next').click(function(event) {
+	$('#basic_text').hide();
+	$('#input_form').hide();
+	$('#services_text').show();
+	$('#services_form').show();
+	event.preventDefault();
+});
+
+$('#back').click(function(event) {
+	$('#basic_text').show();
+	$('#input_form').show();
+	$('#services_text').hide();
+	$('#services_form').hide();
+	event.preventDefault();
+});
+
 
 function done_loading(btn) {
 	btn.button('complete');

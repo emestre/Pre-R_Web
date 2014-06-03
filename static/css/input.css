@@ -6,7 +6,7 @@ body {
     height: 100%;
 }
 
-#right_content {
+#input_content {
     width: 23%;
 	height: 100%;
     float: left;
@@ -18,7 +18,7 @@ body {
 	padding-bottom: 10px;
 }
 
-#left_content {
+#message_content {
     float: right;
     background: #fbfbfb;
     width: 20%;
@@ -64,4 +64,17 @@ body {
 #add-procedure, #remove-procedure {
 	width: 100%;
 	text-align: center;
+}
+
+.form-horizontal .control-label {
+	text-align: left;
+}
+
+#back, #next {
+	margin-left: 44%;
+}
+
+#submit  {
+	margin-top: 20px;
+	margin-left: 42%;
 }

@@ -5,15 +5,15 @@
 
 {% block content %}
 <div id="main_content">
-	<div id="left_content">
+	<div id="message_content">
 		<h4><i>Thank you for making health care healthier!</i></h4>
 		<p></p>
 	</div>
 	<div id="middle_content">
 		<image id="bill" src="../static/img/sample_bill.jpg"/>
 	</div>
-	<div id="right_content">
-		<h4 class="navbar-header divider"> Basic Information </h4>
+	<div id="input_content">
+		<h4 class="navbar-header divider" id="basic_text"> Basic Information </h4>
 
 			<form class="form-horizontal" role="form" id="input_form">
 			
@@ -139,9 +139,15 @@
 				  <input type="text" class="form-control" id="zip" placeholder="ZIP Code" onkeypress="validate(event, this)">
 				</div>
 			  </div>
-			
-			  <h4 class="navbar-header divider"> Services </h4>
-			  
+				 <div class="form-group">
+					<button id="next" class="btn btn-primary">
+						Next
+					</button>
+				</div>
+		</form>
+
+	   <h4 class="navbar-header divider" id="services_text" hidden> Services </h4>
+			  <form class="form-horizontal" role="form" id="services_form" hidden>
 			  <div class="procedures">
 				<div class="proc-0">			  
 					<div class="form-group">
@@ -176,16 +182,20 @@
 					 </div>
 				   </div>
 				</div>
-				<a id="add-procedure" href="#" onclick="addservice()"><h5>+ Add Service<h5></a>
-				<a id="remove-procedure" href="#" onclick="removeservice()" hidden><h5>- Remove Service<h5></a>
+				<a id="add-procedure" href="#" onclick="addservice(event)"><h5>+ Add Service<h5></a>
+				<a id="remove-procedure" href="#" onclick="removeservice(event)" hidden><h5>- Remove Service<h5></a>
 			  </div>
 			  
 				 <div class="form-group">
-					<div class="col-sm-offset-8 col-sm-2">
 					  <button id="submit" type="submit" class="btn btn-primary" data-complete-text="Done " data-loading-text="Loading...">
 						 Submit
 					  </button>
-					</div>
+				  </div>
+				  
+				  <div class="form-group">
+					  <button id="back" class="btn btn-default" data-complete-text="Done " data-loading-text="Loading...">
+						 Back
+					  </button>
 				  </div>
 			</form>
 		
@@ -194,6 +204,7 @@
 {% endblock %}
 
 {% block js %}
+<script src="../static/js/json.js"></script>
 <script src="../static/js/input.js"></script>
 {% endblock %}
 
